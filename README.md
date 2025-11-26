@@ -18,39 +18,6 @@ This repository is perfect for **internships, ML/DE job applications, and showca
 
 ---
 
-# 📊 Project Architecture
-
-```
-                ┌───────────────────────────┐
-                │  Synthetic Sensor Data     │
-                │  (generate_synthetic_data) │
-                └───────────────┬───────────┘
-                                │
-                                ▼
-                     ┌──────────────────┐
-                     │   Data Lake      │
-                     │ raw / processed  │
-                     └──────────┬───────┘
-                                │
-                ┌───────────────┴──────────────────┐
-                ▼                                  ▼
-      transform_raw_to_processed.py       train_failure_model.py
-            (clean + engineer)            (ML training + artifacts)
-                                │
-                                ▼
-                   load_processed_to_warehouse.py
-                     (PostgreSQL fact tables)
-                                │
-                                ▼
-                     batch_score_latest_readings.py
-               (Apply ML model → failure risk scores)
-                                │
-                                ▼
-               PostgreSQL Warehouse (Docker + Adminer)
-```
-
----
-
 # 📁 Folder Structure
 
 ```
