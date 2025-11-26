@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: efp_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: efp_db
+    ports:
+      - "5433:5432" 
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./db/seed_machines.sql:/docker-entrypoint-initdb.d/02-seed_machines.sql
+      - efp_pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    container_name: efp_adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  efp_pgdata:
